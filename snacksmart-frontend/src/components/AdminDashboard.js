@@ -377,12 +377,12 @@ const AdminDashboard = ({ user, onLogout }) => {
                             'bg-blue-100 text-blue-800'
                           }`}>
                             {user.role}
-                          </span>
+                          </span> 
                         </td>
                         <td className="px-6 py-4">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                             user.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                          }`}>
+                          }`}> 
                             {user.status || 'ACTIVE'}
                           </span>
                         </td>
@@ -391,28 +391,28 @@ const AdminDashboard = ({ user, onLogout }) => {
                             <motion.button
                               whileHover={{ scale: 1.05 }}
                               onClick={() => handleUserStatusToggle(user.id, user.status || 'ACTIVE')}
-                              className={`p-2 rounded-lg transition-colors ${
+                              className={`p-2 rounded-lg transition-colors ${ 
                                 (user.status || 'ACTIVE') === 'ACTIVE' 
                                   ? 'text-red-400 hover:text-red-300 hover:bg-red-500/10' 
                                   : 'text-green-400 hover:text-green-300 hover:bg-green-500/10'
                               }`}
-                              disabled={user.role === 'ADMIN'}
+                              disabled={user.role === 'ADMIN'} 
                             >
                               {(user.status || 'ACTIVE') === 'ACTIVE' ? <XMarkIcon className="h-5 w-5" /> : <CheckIcon className="h-5 w-5" />}
                             </motion.button>
                             <motion.button
-                              whileHover={{ scale: 1.05 }}
+                              whileHover={{ scale: 1.05 }} 
                               onClick={() => handleDeleteUser(user.id)}
                               className="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-500/10 transition-colors"
                               disabled={user.role === 'ADMIN'}
                             >
                               <TrashIcon className="h-5 w-5" />
                             </motion.button>
-                          </div>
+                          </div> 
                         </td>
                       </motion.tr>
                     ))}
-                  </tbody>
+                  </tbody> 
                 </table>
               </div>
             </div>
@@ -420,21 +420,21 @@ const AdminDashboard = ({ user, onLogout }) => {
         )}
 
         {activeTab === 'restaurants' && (
-          <div>
+          <div> 
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-3xl font-bold">Restaurant Management</h2>
               <div className="text-gray-400">
-                Total: {stats.totalRestaurants} restaurants with {stats.totalDishes} dishes
+                Total: {stats.totalRestaurants} restaurants with {stats.totalDishes} dishes  
               </div>
             </div>
             
-            {/* Search and Filter */}
+            {/* Search and Filter */}  
             <div className="flex gap-4 mb-6">
               <div className="relative flex-1">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search restaurants..."
+                  placeholder="Search restaurants..." 
                   className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                   value={restaurantSearch}
                   onChange={(e) => setRestaurantSearch(e.target.value)}
@@ -444,7 +444,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                 className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                 value={restaurantFilter}
                 onChange={(e) => setRestaurantFilter(e.target.value)}
-              >
+              > 
                 <option value="all">All Restaurants</option>
                 <option value="active">Active</option>
                 <option value="blocked">Blocked</option>
@@ -503,25 +503,25 @@ const AdminDashboard = ({ user, onLogout }) => {
                       )}
                     </motion.button>
                   </div>
-                </motion.div>
+                </motion.div> 
               ))}
             </div>
           </div>
         )}
-
+ 
         {activeTab === 'analytics' && (
-          <div>
-            <h2 className="text-3xl font-bold mb-8">Analytics</h2>
+          <div>  
+            <h2 className="text-3xl font-bold mb-8">Analytics</h2> 
             <div className="text-center py-16">
-              <div className="text-6xl mb-4">📊</div>
+              <div className="text-6xl mb-4">📊</div> 
               <h3 className="text-xl font-semibold mb-2">Advanced Analytics Coming Soon</h3>
-              <p className="text-gray-400">Detailed insights and reports will be available here</p>
+              <p className="text-gray-400">Detailed insights and reports will be available here</p> 
             </div>
-          </div>
+          </div> 
         )}
       </div>
     </div>
-  );
+  ); 
 };
 
 export default AdminDashboard;
