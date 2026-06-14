@@ -2,10 +2,10 @@
 
 A complete full-stack web application for managing multiple restaurants with role-based access control.
 
-## Features
+## Features 
 
 - **Multi-user system** with three roles: Customer, Restaurant Owner, and Admin
-- **Customer Dashboard**: View and search dishes from all restaurants
+- **Customer Dashboard**: view and search dishes from all restaurants
 - **Owner Dashboard**: Manage dishes (add, edit, delete)
 - **Admin Dashboard**: Manage users and restaurants
 - **JWT Authentication** with secure login/signup
@@ -13,9 +13,9 @@ A complete full-stack web application for managing multiple restaurants with rol
 - **RESTful API** with Spring Boot
 - **MySQL Database** with JPA/Hibernate
 
-## Tech Stack
+## Tech Stack 
 
-### Backend
+### Backend 
 - Java 17
 - Spring Boot 3.2.0
 - Spring Security
@@ -24,13 +24,13 @@ A complete full-stack web application for managing multiple restaurants with rol
 - JWT Authentication
 - Maven
 
-### Frontend
+### Frontend 
 - React 18
 - Tailwind CSS
 - Axios
 - React Router DOM
 
-## Prerequisites
+## Prerequisites 
 
 - Java 17 or higher
 - Node.js 16 or higher
@@ -38,8 +38,8 @@ A complete full-stack web application for managing multiple restaurants with rol
 - Maven 3.6+
 
 ## Setup Instructions
-
-### 1. Database Setup
+ 
+### 1. Database Setup 
 
 1. Install MySQL and create a database:
 ```sql
@@ -115,19 +115,19 @@ The frontend will start on `http://localhost:3000`
 
 ## Default Login Credentials
 
-### Admin
+### Admin 
 - Username: `admin`
 - Password: `password`
 
-### Restaurant Owner
+### Restaurant Owner 
 - Username: `john_owner`
 - Password: `password`
 
-### Customer
+### Customer 
 - Username: `jane_customer`
 - Password: `password`
 
-## Project Structure
+## Project Structure 
 
 ```
 snacksmart-backend/
