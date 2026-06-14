@@ -2,7 +2,7 @@
 
 A complete full-stack web application for managing multiple restaurants with role-based access control.
 
-## Features 
+## Features
 
 - **Multi-user system** with three roles: Customer, Restaurant Owner, and Admin
 - **Customer Dashboard**: view and search dishes from all restaurants
