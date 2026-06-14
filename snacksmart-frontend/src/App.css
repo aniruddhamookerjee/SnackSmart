@@ -14,12 +14,12 @@ body {
 }
 
 .App {
-  min-height: 100vh;
+  min-height: 100vh; 
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+/* Custom scrollbar */ 
+::-webkit-scrollbar { 
+  width: 6px; 
 }
 
 ::-webkit-scrollbar-track {
@@ -166,7 +166,6 @@ textarea:focus {
     font-size: 20px;
   }
 }
-
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .auto-dark {
@@ -174,7 +173,6 @@ textarea:focus {
     color: #f8fafc;
   }
 }
-
 /* Custom animations */
 @keyframes fadeInUp {
   from {
@@ -186,11 +184,9 @@ textarea:focus {
     transform: translateY(0);
   }
 }
-
 .fade-in-up {
   animation: fadeInUp 0.6s ease-out;
 }
-
 @keyframes slideInRight {
   from {
     opacity: 0;
@@ -201,11 +197,9 @@ textarea:focus {
     transform: translateX(0);
   }
 }
-
 .slide-in-right {
   animation: slideInRight 0.6s ease-out;
 }
-
 /* Badge styles */
 .badge {
   display: inline-flex;
@@ -217,22 +211,18 @@ textarea:focus {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-
 .badge-success {
   background-color: #dcfce7;
   color: #166534;
 }
-
 .badge-warning {
   background-color: #fef3c7;
   color: #92400e;
 }
-
 .badge-error {
   background-color: #fee2e2;
   color: #991b1b;
 }
-
 .badge-info {
   background-color: #dbeafe;
   color: #1e40af;
