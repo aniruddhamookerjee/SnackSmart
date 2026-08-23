@@ -1,5 +1,6 @@
 package com.snacksmart.controller;
 
+import com.snacksmart.config.JwtUtils;
 import com.snacksmart.entity.User;
 import com.snacksmart.entity.Restaurant;
 import com.snacksmart.repository.UserRepository;
@@ -18,9 +19,12 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -36,13 +40,15 @@ public class AuthController {
                 if (user.getStatus() != null && user.getStatus() == User.Status.BLOCKED) {
                     return ResponseEntity.badRequest().body("Account has been blocked. Please contact administrator.");
                 }
-                
+
+                String token = jwtUtils.generateJwtToken(user.getUsername(), user.getRole().name());
+
                 return ResponseEntity.ok(Map.of(
                     "id", user.getId(),
                     "username", user.getUsername(),
                     "role", user.getRole(),
                     "status", user.getStatus() != null ? user.getStatus().toString() : "ACTIVE",
-                    "token", "dummy-jwt-token"
+                    "token", token
                 ));
             }
             return ResponseEntity.badRequest().body("Invalid credentials");
@@ -127,16 +133,31 @@ public class AuthController {
         try {
             String username = loginData.get("username");
             String password = loginData.get("password");
-            
-            if ("admin".equals(username) && "123456".equals(password)) {
-                return ResponseEntity.ok(Map.of(
-                    "message", "Admin login successful",
-                    "username", "admin",
-                    "role", "ADMIN",
-                    "token", "admin-jwt-token"
-                ));
+
+            // Same DB-backed, BCrypt-verified check as the regular login endpoint —
+            // this used to accept the literal strings "admin"/"123456" regardless
+            // of what was actually stored for any user.
+            User user = userRepository.findByUsername(username);
+            if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Invalid credentials"));
             }
-            return ResponseEntity.badRequest().body(Map.of("message", "Invalid credentials"));
+            if (user.getRole() != User.Role.ADMIN) {
+                return ResponseEntity.status(403).body(Map.of("message", "This account does not have admin access"));
+            }
+            if (user.getStatus() != null && user.getStatus() == User.Status.BLOCKED) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Account has been blocked. Please contact administrator."));
+            }
+
+            String token = jwtUtils.generateJwtToken(user.getUsername(), user.getRole().name());
+
+            return ResponseEntity.ok(Map.of(
+                "message", "Admin login successful",
+                "id", user.getId(),
+                "username", user.getUsername(),
+                "email", user.getEmail() != null ? user.getEmail() : "",
+                "role", "ADMIN",
+                "token", token
+            ));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Admin login failed"));
         }

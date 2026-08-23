@@ -3,9 +3,11 @@ package com.snacksmart.controller;
 import com.snacksmart.repository.UserRepository;
 import com.snacksmart.repository.RestaurantRepository;
 import com.snacksmart.repository.DishRepository;
+import com.snacksmart.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -16,12 +18,15 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private RestaurantRepository restaurantRepository;
-    
+
     @Autowired
     private DishRepository dishRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping("/stats")
     public ResponseEntity<?> getAdminStats() {
@@ -48,7 +53,7 @@ public class AdminController {
             stats.put("blockedUsers", blockedUsers);
             stats.put("activeRestaurants", activeRestaurants);
             stats.put("blockedRestaurants", blockedRestaurants);
-            stats.put("ordersToday", Math.floor(Math.random() * 200) + 50);
+            stats.put("ordersToday", orderRepository.countByCreatedAtAfter(LocalDate.now().atStartOfDay()));
             
             return ResponseEntity.ok(stats);
         } catch (Exception e) {

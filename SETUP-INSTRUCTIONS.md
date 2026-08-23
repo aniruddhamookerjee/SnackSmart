@@ -25,12 +25,23 @@ CREATE DATABASE snacksmart_db;
 mysql -u root -p snacksmart_db < enhanced-database-schema.sql
 ```
 
-### 3. Update Credentials
-Edit `snacksmart-backend/src/main/resources/application.properties`:
-```properties
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD
+### 3. Set Required Environment Variables
+Credentials are no longer hardcoded in `application.properties` — set these
+in your shell before running the backend:
+```bash
+# Windows (PowerShell)
+$env:DB_USERNAME = "root"
+$env:DB_PASSWORD = "your_mysql_password"
+$env:JWT_SECRET = "a-long-random-string-at-least-32-characters"
+
+# macOS/Linux
+export DB_USERNAME=root
+export DB_PASSWORD=your_mysql_password
+export JWT_SECRET=a-long-random-string-at-least-32-characters
 ```
+`JWT_SECRET` falls back to a clearly-labeled dev-only value if unset, so the
+app still runs locally without it — but never rely on that fallback outside
+your own machine. `DB_PASSWORD` has no fallback and must be set.
 
 ## 🚀 Backend Setup
 

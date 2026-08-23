@@ -1,14 +1,19 @@
 package com.snacksmart.controller;
 
+import com.snacksmart.entity.Order;
 import com.snacksmart.entity.Restaurant;
 import com.snacksmart.entity.User;
+import com.snacksmart.repository.OrderRepository;
 import com.snacksmart.repository.RestaurantRepository;
 import com.snacksmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -18,9 +23,12 @@ public class RestaurantController {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
-    
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
@@ -140,12 +148,18 @@ public class RestaurantController {
                 return ResponseEntity.notFound().build();
             }
             
-            // Get basic stats (you can expand this with real data)
+            List<Order> todaysOrders = orderRepository.findByRestaurantIdAndCreatedAtAfter(
+                id, LocalDate.now().atStartOfDay());
+            BigDecimal revenueToday = todaysOrders.stream()
+                .map(Order::getTotalAmount)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
             Map<String, Object> stats = Map.of(
                 "totalDishes", restaurant.get().getMenu().size(),
-                "ordersToday", Math.floor(Math.random() * 50) + 10,
+                "ordersToday", todaysOrders.size(),
                 "averageRating", restaurant.get().getRating() != null ? restaurant.get().getRating() : 4.2,
-                "revenue", Math.floor(Math.random() * 10000) + 5000
+                "revenue", revenueToday
             );
             
             return ResponseEntity.ok(stats);
