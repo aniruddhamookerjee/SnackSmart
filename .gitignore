@@ -1,0 +1,18 @@
+# Build output
+snacksmart-backend/target/
+snacksmart-frontend/build/
+snacksmart-frontend/node_modules/
+out/
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+
+# Secrets — never commit real credentials
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
